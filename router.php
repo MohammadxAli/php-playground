@@ -17,10 +17,10 @@ function routeToController($route, $routes)
         return;
     }
 
-    about();
+    abort();
 }
 
-function about($code = 404)
+function abort($code = 404)
 {
     http_response_code($code);
 
