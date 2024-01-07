@@ -5,6 +5,7 @@ class Database
 {
 
     private $connection;
+    private $statement;
 
     public function __construct($config, $username = 'root', $password = 'root')
     {
@@ -16,9 +17,33 @@ class Database
 
     public function query($query, $params = [])
     {
-        $statement = $this->connection->prepare($query);
-        $statement->execute($params);
+        $this->statement = $this->connection->prepare($query);
 
-        return $statement;
+        $this->statement->execute($params);
+
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this->statement->fetchAll();
+    }
+
+
+    public function findOne()
+    {
+        return $this->statement->fetch();
+    }
+
+    public function findOneOrAbort()
+    {
+        $result = $this->findOne();
+
+
+        if (!$result) {
+            abort();
+        }
+
+        return $result;
     }
 }
