@@ -8,8 +8,9 @@ class Database
 
     public function __construct()
     {
-        $dsn = "mysql:host=host.docker.internal;port=3306;dbname=demo;charset=utf8mb4";
-        $this->connection = new PDO($dsn, 'root', 'root');
+        $this->connection = new PDO($dsn, 'root', 'root', [
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ]);
     }
 
     public function query($query)
