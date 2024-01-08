@@ -1,4 +1,3 @@
-
 <?php
 
 $title = 'Create Note';
@@ -10,12 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $currentUserId = 2;
     $errors = [];
 
-    if (strlen($_POST['body']) === 0) {
-        $errors['body'] = 'A body is required.';
-    }
-
-    if (strlen($_POST['body']) > 1000) {
-        $errors['body'] = 'Body can not be more than 1,000 characters long.';
+    if (!Validator::string($_POST['body'], 1, 1000)) {
+        $errors['body'] = 'A body of no more than 1,000 characters is required.';
     }
 
     if (empty($errors)) {
