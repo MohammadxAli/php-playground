@@ -5,7 +5,7 @@ $routes = require(base_path('routes.php'));
 function routeToController($route, $routes)
 {
     if (key_exists($route, $routes)) {
-        require $routes[$route];
+        require base_path($routes[$route]);
         return;
     }
 
@@ -16,7 +16,7 @@ function abort($code = 404)
 {
     http_response_code($code);
 
-    require "views/{$code}.view.php";
+    require view("{$code}");
 
     die();
 }
