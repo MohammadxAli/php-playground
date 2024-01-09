@@ -1,5 +1,6 @@
 <?php
 
-$title = 'Contact';
 
-require 'views/contact.view.php';
+view('contact', [
+    'title' => 'Contact'
+]);
