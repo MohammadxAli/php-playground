@@ -17,6 +17,15 @@ function urlIs($url)
     return $_SERVER['REQUEST_URI'] === $url;
 }
 
+function abort($code = Response::NOT_FOUND)
+{
+    http_response_code($code);
+
+    require view("{$code}");
+
+    die();
+}
+
 function authorize($condition)
 {
     if (!$condition) {
