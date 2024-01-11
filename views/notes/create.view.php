@@ -4,7 +4,7 @@
 <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <a href="/notes" class="inline-block mb-4 text-blue-500 underline">Go back...</a>
-        <form method="POST">
+        <form method="POST" action="/notes">
             <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">
                     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
