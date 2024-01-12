@@ -4,14 +4,11 @@
 <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <a href="/notes" class="inline-block mb-6 text-blue-500 underline">Go back...</a>
-        <p>
+        <p class="mb-6">
             <?= htmlspecialchars($note['body']) ?>
         </p>
-        <form method="POST" class="mt-6">
-            <input type="hidden" name="id" value="<?= $note['id'] ?>">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="text-red-500 text-sm">Delete</button>
-        </form>
+        <a class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            href="/note/edit?id=<?= $note['id'] ?>">Edit</a>
     </div>
 </main>
 <?php require(base_path('views/partials/foot.php')); ?>
