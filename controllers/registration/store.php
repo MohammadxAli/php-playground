@@ -1,4 +1,6 @@
 <?php
+use Core\App;
+use Core\Database;
 use Core\Validator;
 
 $email = $_POST['email'];
@@ -20,5 +22,27 @@ if (!empty($errors)) {
     ]);
 }
 
-header("location: /");
-die();
+$db = App::resolve(Database::class);
+
+$user = $db->query('SELECT * from users where email = :email', [
+    'email' => $email,
+])->findOne();
+
+if ($user) {
+    header('location: /');
+    die();
+} else {
+    $db->query('INSERT INTO users(email, password) values (:email, :password)', [
+        'email' => $email,
+        'password' => $password,
+    ]);
+
+    $_SESSION['user'] = [
+        'email' => $email,
+    ];
+
+    header("location: /");
+    die();
+}
+
+
