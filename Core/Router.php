@@ -3,6 +3,7 @@
 namespace Core;
 
 use Core\Response;
+use Core\Middleware;
 
 class Router
 {
@@ -59,15 +60,9 @@ class Router
 
                 if ($route['middleware'] ?? false) {
 
-                    if ($route['middleware'] === 'guest' && isset($_SESSION['user'])) {
-                        header("location: /");
-                        die();
-                    }
+                    (new Middleware\Auth())->handle($route['middleware']);
 
-                    if ($route['middleware'] === 'auth' && !isset($_SESSION['user'])) {
-                        header("location: /");
-                        die();
-                    }
+                    (new Middleware\Guest())->handle($route['middleware']);
 
                 }
 
