@@ -4,9 +4,9 @@ namespace Core\Middleware;
 
 class Guest
 {
-    public function handle($key)
+    public function handle()
     {
-        if ($key === 'guest' && isset($_SESSION['user'])) {
+        if (isset($_SESSION['user']) ?? false) {
             header("location: /");
             die();
         }

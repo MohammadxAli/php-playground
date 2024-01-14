@@ -4,9 +4,9 @@ namespace Core\Middleware;
 
 class Auth
 {
-    public function handle($key)
+    public function handle()
     {
-        if ($key === 'auth' && !isset($_SESSION['user'])) {
+        if (!isset($_SESSION['user']) ?? false) {
             header("location: /");
             die();
         }

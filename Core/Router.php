@@ -2,8 +2,8 @@
 
 namespace Core;
 
+use Core\Middleware\Middleware;
 use Core\Response;
-use Core\Middleware;
 
 class Router
 {
@@ -57,14 +57,7 @@ class Router
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-
-                if ($route['middleware'] ?? false) {
-
-                    (new Middleware\Auth())->handle($route['middleware']);
-
-                    (new Middleware\Guest())->handle($route['middleware']);
-
-                }
+                Middleware::resolve($route['middleware']);
 
                 return require base_path($route['controller']);
             }
