@@ -1,6 +1,5 @@
 <?php
-use Core\App;
-use Core\Database;
+use Core\Authenticator;
 use Http\Forms\LoginForm;
 
 $email = $_POST['email'];
@@ -8,30 +7,16 @@ $password = $_POST['password'];
 
 $form = new LoginForm();
 
-if (!$form->validate($email, $password)) {
-
-    return view("session/create", [
-        'errors' => $form->errors(),
-    ]);
-}
-
-$db = App::resolve(Database::class);
-
-$user = $db->query('SELECT * from users where email = :email', [
-    'email' => $email,
-])->findOne();
-
-if ($user) {
-    if (password_verify($password, $user['password'])) {
-        login($user);
-        header('location: /');
-        exit();
+if ($form->validate($email, $password)) {
+    if ((new Authenticator)->attempt($email, $password)) {
+        redirect('/');
     }
+
+    $message = 'The entered credentials are incorrect.';
+    $form->error('email', $message);
+    $form->error('password', $message);
 }
 
 return view("session/create", [
-    'errors' => [
-        'email' => 'The entered credentials are incorrect.',
-        'password' => 'The entered credentials are incorrect.',
-    ]
+    'errors' => $form->errors(),
 ]);
