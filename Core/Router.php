@@ -56,6 +56,21 @@ class Router
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+
+                if ($route['middleware'] ?? false) {
+
+                    if ($route['middleware'] === 'guest' && isset($_SESSION['user'])) {
+                        header("location: /");
+                        die();
+                    }
+
+                    if ($route['middleware'] === 'auth' && !isset($_SESSION['user'])) {
+                        header("location: /");
+                        die();
+                    }
+
+                }
+
                 return require base_path($route['controller']);
             }
         }
