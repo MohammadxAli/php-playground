@@ -1,0 +1,16 @@
+{
+    "name": "mohammadxali/demo",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mohammad Ali Shahbazi",
+            "email": "mohammadali.shahbazi@gmail.com"
+        }
+    ],
+    "require": {}
+}
