@@ -12,5 +12,15 @@
             "email": "mohammadali.shahbazi@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/collections": "^10.40"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.31"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }
